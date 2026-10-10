@@ -1,0 +1,179 @@
+{
+  "profile": {
+    "name": "于思源",
+    "englishName": "Andy",
+    "hello": "你好，我是",
+    "roles": "视频创作 / 品牌策划 / 内容运营",
+    "intro": "让想法飘浮，让创意落地",
+    "location": "上海 · 深圳",
+    "note": "广告学背景 · 创意与执行",
+    "about": "好玩的，好看的，好的",
+    "aboutDetail": "从大学到工作的视频作品",
+    "email": "2776840366@qq.com",
+    "heroImage": "/assets/siyuan-profile-glass-v4.png"
+  },
+  "films": [
+    {
+      "id": "c36c60df-b1ba-4ac9-a608-0b0ba8d7add1",
+      "title": "Jackery 1000 Plus v2 产品片",
+      "subtitle": "前期与产品经理和销售拉齐产品信息，独立策划文字脚本，沟通各方供应商参与配音演员、选角、分镜头脚本规划等流程。全程跟进拍摄和剪辑执行，预期时间内完成高质量交付",
+      "description": "",
+      "platform": "",
+      "cover": "/media/ef09b862-38aa-4ab8-99f6-03efd0a49330.png",
+      "file": "/media/20796110-497d-4603-b1a6-0cd8e84d7cb5.mp4",
+      "preview": "",
+      "url": "https://www.youtube.com/watch?v=zHho9oL733g",
+      "demo": false
+    },
+    {
+      "id": "7abc6585-d5cc-4aaf-81d7-6a294042debb",
+      "title": "自制AI品牌片",
+      "subtitle": "全流程AI产出",
+      "description": "核心创意从Jackery让家人团聚为出发点，现代人都被手机占据太多时间，而由于停电这个契机，大家只能围在Jackery旁白充电，这反而让一家人重新聚在了一起。",
+      "platform": "",
+      "cover": "/media/16ccd140-a458-4acb-9adc-e93bf4a8fb6b.jpg",
+      "file": "/media/e52b654e-cbe9-4df1-a936-f07c9587fa47.mp4",
+      "preview": "",
+      "url": "",
+      "demo": false
+    },
+    {
+      "id": "9a6d58e1-a3c7-4af3-929f-ba9628fb5747",
+      "title": "Jackery品牌片",
+      "subtitle": "脚本、策划、项目管理跟进",
+      "description": "本片从Jackery可以作为你的安心来源为主题，生活已经被很多琐事缠绕了，但停电不必成为你的困扰，Jackery会默默守护你",
+      "platform": "",
+      "cover": "/media/9fd1aa60-b166-455b-b6da-eea6b4b66fa1.jpg",
+      "file": "/media/da758cc5-d03d-4d00-a914-2d37a39c5df5.mp4",
+      "preview": "",
+      "url": "",
+      "demo": false
+    },
+    {
+      "id": "film-1",
+      "title": "旺旺碎冰冰视频仿拍",
+      "subtitle": "布光、剪辑、出镜",
+      "description": "好玩的",
+      "platform": "",
+      "cover": "/media/3fddb5f4-90df-473d-8875-aa3ffdd63f1c.jpg",
+      "file": "/media/7eb09337-dbe6-4550-8a69-ca8ba026cfe7.mp4",
+      "preview": "",
+      "url": "",
+      "demo": false
+    },
+    {
+      "id": "film-2",
+      "title": "利郎大广赛作品",
+      "subtitle": "创意、文案",
+      "description": "从利郎slogan为出发点，less is more，想到用一套西装适配多个场景，表达无论有多少场景，有利郎，一套就够了，灵活匹配各种场景",
+      "platform": "",
+      "cover": "/media/e37c83c9-a6bd-4894-9d2b-cc4d8b09c0fb.jpg",
+      "file": "/media/8fc76c57-2b25-4c9b-9199-35488a1f3ee8.mp4",
+      "preview": "",
+      "url": "",
+      "demo": false
+    },
+    {
+      "id": "1c48d6cf-c3f0-429d-b1a9-170bf92bf64a",
+      "title": "永庆房屋——金犊奖全球三等奖",
+      "subtitle": "策划、文案、置景、剪辑",
+      "description": "视频从大部分租房的痛点出发，需要一处处仔细查看，搞得人人都像侦探一样，耗费精力，而永庆房屋作为这样一个中介，会提前帮你“侦查”，如实上报房屋情况，帮你省心省力。",
+      "platform": "",
+      "cover": "/media/2cb14c26-c994-4fa9-b08b-1a07afb439be.jpg",
+      "file": "/media/ab5f79e7-231b-40d9-a048-69ec4477cab8.mp4",
+      "preview": "",
+      "url": "",
+      "demo": false
+    },
+    {
+      "id": "0ee7eca6-3f75-426f-b7a2-57ead8456414",
+      "title": "CP香肠广告仿拍",
+      "subtitle": "打光、出镜",
+      "description": "课程作业仿拍",
+      "platform": "",
+      "cover": "/media/b9c69e43-7947-4569-bc97-cce1bc5439cb.jpg",
+      "file": "/media/9769889f-b408-4c17-b732-d340b83cfb47.mp4",
+      "preview": "",
+      "url": "",
+      "demo": false
+    }
+  ],
+  "decks": [
+    {
+      "id": "deck-1",
+      "title": "新型宠物咖啡馆设想",
+      "subtitle": "品牌策略、内容规划、从0到1完成",
+      "description": "",
+      "platform": "",
+      "cover": "/media/4b35fce5-640f-4f2a-aecf-c30546710873.jpg",
+      "file": "/media/5f94e438-933e-4fd5-9a85-37b6d8e0e469.pptx",
+      "preview": "/media/ae025406-aae0-4960-84c7-692913e8557b.pdf",
+      "url": "",
+      "demo": false
+    },
+    {
+      "id": "deck-2",
+      "title": "梦出梦展览策划",
+      "subtitle": "创意策划",
+      "description": "",
+      "platform": "",
+      "cover": "/media/3144e5c5-86c9-42a6-95ac-f5f729afddc2.jpg",
+      "file": "/media/77b10c2f-e36a-4def-999c-a26f33251e54.pdf",
+      "preview": "/media/0cc24114-3202-4d70-90c6-8321e172b56a.pdf",
+      "url": "",
+      "demo": false
+    }
+  ],
+  "accounts": [
+    {
+      "id": "account-1",
+      "title": "“藏熹在干嘛啊”小红书账号运营",
+      "subtitle": "从选题到拍摄，从创意到执行，都由我一人完成",
+      "description": "在职期间通过内容创作和运营让账号涨粉4k+",
+      "platform": "小红书",
+      "cover": "/media/2e830666-350e-46a8-bfdf-d9be6b4a2a37.jpg",
+      "file": "",
+      "preview": "",
+      "url": "https://xhslink.cn/o/7WtBSv5Bnw5",
+      "demo": false
+    },
+    {
+      "id": "account-2",
+      "title": "这是我的广告位*（夹带私货）",
+      "subtitle": "我自己的账号，欢迎关注",
+      "description": "可关注可关注",
+      "platform": "抖音",
+      "cover": "/media/89ee9041-bbaf-4352-950b-db7acd72ecd5.jpg",
+      "file": "",
+      "preview": "",
+      "url": "https://v.douyin.com/Xx6dwKdqpAQ/%207@4.com%20:8pm",
+      "demo": false
+    }
+  ],
+  "published": [
+    {
+      "id": "published-1",
+      "title": "已发布视频示例 01",
+      "subtitle": "视频标题与发布链接待添加",
+      "description": "补充原始发布链接后，可前往平台观看。",
+      "platform": "YouTube",
+      "cover": "/assets/coast.jpg",
+      "file": "",
+      "preview": "",
+      "url": "",
+      "demo": true
+    },
+    {
+      "id": "published-2",
+      "title": "已发布视频示例 02",
+      "subtitle": "视频标题与发布链接待添加",
+      "description": "补充原始发布链接后，可前往平台观看。",
+      "platform": "TikTok",
+      "cover": "/assets/architecture.jpg",
+      "file": "",
+      "preview": "",
+      "url": "",
+      "demo": true
+    }
+  ]
+}
