@@ -8,3 +8,16 @@
 .hero-image img{width:100%;height:100%;object-fit:contain;object-position:center}
 @media(max-width:700px){.hero{height:190svh;min-height:0}.hero-image{inset:auto;left:50%;top:51%;width:min(90vw,calc((100svh - 168px)*1.6));height:auto;border-radius:8px}}
 @media(prefers-reduced-motion:reduce){.hero{height:auto!important;min-height:0}.hero-sticky{height:auto;min-height:0;padding-bottom:40px}.hero-image{position:relative;inset:auto;transform:none!important;opacity:1!important;pointer-events:auto;width:min(86vw,1240px);margin:44px auto 0;flex-shrink:0}.hero-image img{object-fit:contain}.hero-upper,.hero-main,.hero-bottom{opacity:1!important;transform:none!important}}
+
+/* The portrait, profile artwork and surrounding light share one green field. */
+.hero-haze{inset:-12%;overflow:hidden;background:radial-gradient(ellipse at 24% 56%,#607f4212,transparent 42%),radial-gradient(ellipse at 78% 36%,#739b7510,transparent 48%);contain:paint}
+.hero-haze:before{content:'';position:absolute;inset:-14%;background:radial-gradient(ellipse at 29% 52%,#b8d67e10,transparent 38%),radial-gradient(ellipse at 72% 65%,#719f780d,transparent 40%);filter:blur(25px);animation:portfolioAmbient 24s ease-in-out infinite;will-change:transform;pointer-events:none}
+.hero-haze:after{content:'';position:absolute;left:-9%;top:33%;width:118%;height:42%;border-radius:50%;border-top:1px solid #d3e6a718;box-shadow:0 -14px 45px #adc9740b;background:linear-gradient(173deg,transparent 28%,#bddb800d 48%,#80a36b06 58%,transparent 72%);filter:blur(.5px);animation:portfolioLightArc 28s ease-in-out infinite;will-change:transform;pointer-events:none}
+.hero-image{overflow:visible;border-radius:0;box-shadow:none;isolation:isolate}
+.hero-image:before{content:'';position:absolute;inset:-16%;z-index:-1;background:radial-gradient(ellipse at 22% 48%,#9cbc570c,transparent 48%),radial-gradient(ellipse at 76% 63%,#689a740b,transparent 50%);filter:blur(36px);animation:portfolioAmbient 24s ease-in-out infinite reverse;pointer-events:none}
+.hero-image img{position:relative;z-index:1;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent),linear-gradient(0deg,transparent,#000 4%,#000 96%,transparent);mask-composite:intersect;-webkit-mask-composite:source-in}
+.hero-image:after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(115deg,transparent 20%,#d4eaa011 42%,#94bf6408 54%,transparent 74%);mix-blend-mode:screen;opacity:.3;animation:portfolioLightArc 28s ease-in-out infinite;pointer-events:none}
+@keyframes portfolioAmbient{0%,100%{transform:translate3d(-2%,-1%,0) scale(.97)}50%{transform:translate3d(2%,2%,0) scale(1.04)}}
+@keyframes portfolioLightArc{0%,100%{transform:translate3d(-2%,2%,0) rotate(-8deg)}50%{transform:translate3d(2%,-2%,0) rotate(-3deg)}}
+@media(max-width:700px){.hero-haze:after{top:38%;height:30%;width:140%;left:-20%}.hero-image:before{filter:blur(24px)}}
+@media(prefers-reduced-motion:reduce){.hero-haze:before,.hero-haze:after,.hero-image:before,.hero-image:after{animation:none;will-change:auto}.hero-image:after{display:none}}
