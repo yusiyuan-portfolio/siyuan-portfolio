@@ -175,5 +175,89 @@
       "url": "",
       "demo": true
     }
-  ]
+  ],
+  "products": [
+    {
+      "id": "product-outage",
+      "title": "停电备灾页面",
+      "subtitle": "Reliable Backup Power During Outages",
+      "description": "负责产品调研、详情页模块搭建、文案内容、寻找风格参考、沟通各方搭建详情页，并完成整体视觉优化。",
+      "cover": "/assets/product-pages/outage-cover.jpg",
+      "url": "https://www.jackery.com/pages/reliable-backup-power-during-outages",
+      "preview": "/assets/product-pages/outage-desktop.jpg",
+      "mobilePreview": "/assets/product-pages/outage-mobile.jpg",
+      "previewMode": "image",
+      "roles": [
+        "产品调研",
+        "详情页模块搭建",
+        "文案内容",
+        "寻找风格参考",
+        "沟通各方搭建详情页",
+        "整体视觉优化"
+      ]
+    },
+    {
+      "id": "product-home-backup",
+      "title": "停电备灾页面",
+      "subtitle": "Home Battery Backup",
+      "description": "负责产品调研、详情页模块搭建、文案内容、寻找风格参考、沟通各方搭建详情页，并完成整体视觉优化。",
+      "cover": "/assets/product-pages/home-backup-cover.jpg",
+      "url": "https://www.jackery.com/pages/home-battery-backup",
+      "preview": "/assets/product-pages/home-backup-desktop.jpg",
+      "mobilePreview": "/assets/product-pages/home-backup-mobile.jpg",
+      "previewMode": "image",
+      "roles": [
+        "产品调研",
+        "详情页模块搭建",
+        "文案内容",
+        "寻找风格参考",
+        "沟通各方搭建详情页",
+        "整体视觉优化"
+      ]
+    },
+    {
+      "id": "product-homepower-1000",
+      "title": "HomePower 1000 Plus v2",
+      "subtitle": "产品详情页",
+      "description": "负责产品调研、详情页模块搭建、文案内容、寻找风格参考、沟通各方搭建详情页，并完成整体视觉优化。",
+      "cover": "/assets/product-pages/homepower-1000-cover.jpg",
+      "url": "https://www.jackery.com/products/jackery-homepower-1000-plus-v2",
+      "preview": "/assets/product-pages/homepower-1000-desktop.jpg",
+      "mobilePreview": "/assets/product-pages/homepower-1000-mobile.jpg",
+      "previewMode": "image",
+      "roles": [
+        "产品调研",
+        "详情页模块搭建",
+        "文案内容",
+        "寻找风格参考",
+        "沟通各方搭建详情页",
+        "整体视觉优化"
+      ]
+    },
+    {
+      "id": "product-red-cross",
+      "title": "红十字会系列产品",
+      "subtitle": "HomePower 2000 Plus v2 Red Cross Edition",
+      "description": "负责产品调研、详情页模块搭建、文案内容、寻找风格参考、沟通各方搭建详情页，并完成整体视觉优化。",
+      "cover": "/assets/product-pages/red-cross-cover.jpg",
+      "url": "https://www.jackery.com/products/jackery-homepower-2000-plus-v2-red-cross-edition",
+      "preview": "/assets/product-pages/red-cross-desktop.jpg",
+      "mobilePreview": "/assets/product-pages/red-cross-mobile.jpg",
+      "previewMode": "image",
+      "roles": [
+        "产品调研",
+        "详情页模块搭建",
+        "文案内容",
+        "寻找风格参考",
+        "沟通各方搭建详情页",
+        "整体视觉优化"
+      ]
+    }
+  ],
+  "productAchievements": {
+    "ctr": "提升 30%",
+    "retention": "提升 58%",
+    "browseTime": "40s → 2m40s",
+    "bounce": "降低 12%"
+  }
 }
