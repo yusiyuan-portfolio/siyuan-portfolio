@@ -75,36 +75,90 @@ function deckDocument(pdf){
   return document;
 }
 function openDeckReader(item,document){
-  deckState={item,pages:document.pages,index:0,zoom:false};
-  body.innerHTML=`<div class="deck-reader"><div class="deck-toolbar"><span class="deck-position" aria-live="polite"></span><label class="deck-jump"><span>跳至</span><select aria-label="选择策划案页码">${document.pages.map((_,i)=>`<option value="${i}">第 ${i+1} 页</option>`).join('')}</select></label><button type="button" data-deck-action="zoom" aria-pressed="false">放大</button><a class="deck-full-page" target="_blank" rel="noopener noreferrer">高清页</a></div><div class="deck-viewport" tabindex="0" aria-label="策划案页面，左右滑动翻页"><img class="deck-page-image" decoding="async" alt=""></div><p class="deck-page-status" role="status"></p><div class="deck-reader-nav"><button type="button" data-deck-action="prev">上一页</button><span>左右滑动翻页</span><button type="button" data-deck-action="next">下一页</button></div></div>${previewInfo('decks',item)}`;
-  const img=body.querySelector('.deck-page-image'),viewport=body.querySelector('.deck-viewport'),status=body.querySelector('.deck-page-status');
-  img.onload=()=>{status.hidden=true;};
-  img.onerror=()=>{status.hidden=false;status.textContent='本页暂时未能加载，可以点「高清页」重试，或查看完整 PDF。';};
+  const state=deckState={item,pages:document.pages,index:0,displayedIndex:null,zoom:false,request:0,disposed:false,cache:new Map(),image:null,previousImage:null,loadingTimer:null,transitionTimer:null,transitionFrame:0};
+  body.innerHTML=`<div class="deck-reader"><div class="deck-toolbar"><span class="deck-position" aria-live="polite"></span><label class="deck-jump"><span>跳至</span><select aria-label="选择策划案页码">${document.pages.map((_,i)=>`<option value="${i}">第 ${i+1} 页</option>`).join('')}</select></label><button type="button" data-deck-action="zoom" aria-pressed="false">放大</button><a class="deck-full-page" target="_blank" rel="noopener noreferrer">高清页</a></div><div class="deck-viewport" tabindex="0" aria-label="策划案页面，左右滑动翻页"><div class="deck-page-frame"></div><p class="deck-page-status" role="status" hidden></p></div><div class="deck-reader-nav"><button type="button" data-deck-action="prev">上一页</button><span>左右滑动翻页</span><button type="button" data-deck-action="next">下一页</button></div></div>${previewInfo('decks',item)}`;
+  const viewport=state.viewport=body.querySelector('.deck-viewport');
+  state.frame=body.querySelector('.deck-page-frame');state.status=body.querySelector('.deck-page-status');
   let start=null;
-  const onStart=e=>{if(deckState&&!deckState.zoom&&e.touches.length===1)start={x:e.touches[0].clientX,y:e.touches[0].clientY};else start=null;};
-  const onEnd=e=>{if(!start||!deckState||deckState.zoom||!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.4)changeDeckPage(dx<0?1:-1);};
-  const onKey=e=>{if(!deckState||e.target.tagName==='SELECT'||deckState.zoom)return;if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();changeDeckPage(e.key==='ArrowRight'?1:-1);}};
+  const onStart=e=>{if(deckState===state&&!state.zoom&&e.touches.length===1)start={x:e.touches[0].clientX,y:e.touches[0].clientY};else start=null;};
+  const onEnd=e=>{if(!start||deckState!==state||state.zoom||!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.4)changeDeckPage(dx<0?1:-1);};
+  const onKey=e=>{if(deckState!==state||e.target.tagName==='SELECT'||state.zoom)return;if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();changeDeckPage(e.key==='ArrowRight'?1:-1);}};
   viewport.addEventListener('touchstart',onStart,{passive:true});viewport.addEventListener('touchend',onEnd,{passive:true});dialog.addEventListener('keydown',onKey);
-  mediaCleanup=()=>{img.onload=null;img.onerror=null;viewport.removeEventListener('touchstart',onStart);viewport.removeEventListener('touchend',onEnd);dialog.removeEventListener('keydown',onKey);};
+  mediaCleanup=()=>{state.disposed=true;state.request++;clearTimeout(state.loadingTimer);finishDeckTransition(state);for(const entry of state.cache.values())entry.cancel();state.cache.clear();viewport.removeEventListener('touchstart',onStart);viewport.removeEventListener('touchend',onEnd);dialog.removeEventListener('keydown',onKey);};
   updateDeckPage();
 }
-function updateDeckPage(){
-  if(!deckState)return;
-  const {item,pages,index,zoom}=deckState,page=pages[index],viewport=body.querySelector('.deck-viewport'),img=body.querySelector('.deck-page-image');
-  body.querySelector('.deck-position').textContent=`${index+1} / ${pages.length} 页`;
-  body.querySelector('.deck-jump select').value=String(index);
-  body.querySelector('[data-deck-action="prev"]').disabled=index===0;
-  body.querySelector('[data-deck-action="next"]').disabled=index===pages.length-1;
-  const zoomButton=body.querySelector('[data-deck-action="zoom"]');zoomButton.textContent=zoom?'适应屏幕':'放大';zoomButton.setAttribute('aria-pressed',String(zoom));
-  body.querySelector('.deck-full-page').href=url(page.src);viewport.classList.toggle('is-zoomed',zoom);
-  img.alt=`${item.title}，第 ${index+1} 页，共 ${pages.length} 页`;img.width=page.width;img.height=page.height;
-  if(img.getAttribute('src')!==url(page.src)){
-    const status=body.querySelector('.deck-page-status');status.hidden=false;status.textContent=`正在加载第 ${index+1} 页…`;
-    img.src=url(page.src);viewport.scrollTop=0;viewport.scrollLeft=0;
-    if(pages[index+1]){const next=new Image();next.src=url(pages[index+1].src);}
-  }
+function finishDeckTransition(state){
+  clearTimeout(state.transitionTimer);cancelAnimationFrame(state.transitionFrame);state.transitionFrame=0;
+  if(state.image){state.image.classList.add('is-settled');state.image.classList.remove('is-entering');state.image.getBoundingClientRect();}
+  state.previousImage?.remove();state.previousImage=null;state.image?.classList.remove('is-settled');
 }
-function changeDeckPage(delta){if(!deckState)return;deckState.index=Math.max(0,Math.min(deckState.pages.length-1,deckState.index+delta));deckState.zoom=false;updateDeckPage();}
+function loadDeckPage(state,index){
+  const cached=state.cache.get(index);
+  if(cached){state.cache.delete(index);state.cache.set(index,cached);return cached.promise;}
+  const page=state.pages[index],img=new Image(),entry={image:img,pending:true,cancel:()=>{},promise:null};
+  img.decoding='async';img.width=page.width;img.height=page.height;
+  entry.promise=new Promise((resolve,reject)=>{
+    let decoding=false;
+    const fail=()=>{if(!entry.pending)return;entry.pending=false;img.onload=null;img.onerror=null;reject(Error('Deck page failed to load'));};
+    const ready=async()=>{
+      if(!entry.pending||decoding)return;decoding=true;
+      try{if(typeof img.decode==='function')await img.decode();}
+      catch{if(!img.complete||!img.naturalWidth){fail();return;}}
+      if(!entry.pending)return;
+      if(!img.naturalWidth){fail();return;}
+      entry.pending=false;img.onload=null;img.onerror=null;resolve(img);
+    };
+    entry.cancel=()=>{if(entry.pending){fail();img.removeAttribute('src');}};
+    img.onload=ready;img.onerror=fail;img.src=url(page.src);
+    if(img.complete&&img.naturalWidth)ready();
+  }).catch(error=>{if(state.cache.get(index)===entry)state.cache.delete(index);throw error;});
+  state.cache.set(index,entry);
+  while(state.cache.size>5){
+    const key=[...state.cache.keys()].find(key=>key!==state.index&&key!==state.displayedIndex&&state.cache.get(key).image!==state.previousImage);
+    if(key===undefined)break;const removed=state.cache.get(key);state.cache.delete(key);removed.cancel();
+  }
+  return entry.promise;
+}
+function updateDeckControls(state){
+  const shown=state.displayedIndex??state.index;
+  body.querySelector('.deck-position').textContent=`${shown+1} / ${state.pages.length} 页`;
+  body.querySelector('.deck-jump select').value=String(state.index);
+  body.querySelector('[data-deck-action="prev"]').disabled=state.index===0;
+  body.querySelector('[data-deck-action="next"]').disabled=state.index===state.pages.length-1;
+  const zoomButton=body.querySelector('[data-deck-action="zoom"]');zoomButton.disabled=!state.image||state.index!==state.displayedIndex;zoomButton.textContent=state.zoom?'适应屏幕':'放大';zoomButton.setAttribute('aria-pressed',String(state.zoom));
+  body.querySelector('.deck-full-page').href=url(state.pages[shown].src);state.viewport.classList.toggle('is-zoomed',state.zoom);
+}
+function updateDeckPage(){
+  const state=deckState;if(!state||state.disposed)return;
+  const index=state.index,token=++state.request;
+  clearTimeout(state.loadingTimer);state.status.hidden=true;updateDeckControls(state);
+  if(state.displayedIndex===index){state.viewport.setAttribute('aria-busy','false');return;}
+  state.viewport.setAttribute('aria-busy','true');
+  state.loadingTimer=setTimeout(()=>{if(deckState===state&&!state.disposed&&state.request===token){state.status.hidden=false;state.status.textContent=`正在加载第 ${index+1} 页…`; }},350);
+  loadDeckPage(state,index).then(img=>{
+    if(deckState!==state||state.disposed||state.request!==token)return;
+    clearTimeout(state.loadingTimer);state.status.hidden=true;state.viewport.setAttribute('aria-busy','false');
+    finishDeckTransition(state);
+    const previous=state.image,animate=previous&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+    img.className='deck-page-image';img.alt=`${state.item.title}，第 ${index+1} 页，共 ${state.pages.length} 页`;
+    if(animate)img.classList.add('is-entering');
+    state.frame.append(img);state.image=img;state.previousImage=previous;state.displayedIndex=index;state.zoom=false;
+    state.viewport.scrollTop=0;state.viewport.scrollLeft=0;updateDeckControls(state);
+    if(animate){
+      // Only the decoded incoming page fades in; the old page stays fully visible underneath.
+      img.getBoundingClientRect();state.transitionFrame=requestAnimationFrame(()=>{
+        state.transitionFrame=0;if(deckState!==state||state.disposed||state.image!==img)return;
+        img.classList.remove('is-entering');state.transitionTimer=setTimeout(()=>{if(state.image===img)finishDeckTransition(state);},180);
+      });
+    }else finishDeckTransition(state);
+    for(const neighbor of [index-1,index+1])if(neighbor>=0&&neighbor<state.pages.length)loadDeckPage(state,neighbor).catch(()=>{});
+  }).catch(()=>{
+    if(deckState!==state||state.disposed||state.request!==token)return;
+    clearTimeout(state.loadingTimer);state.viewport.setAttribute('aria-busy','false');state.index=state.displayedIndex??0;updateDeckControls(state);
+    state.status.textContent=`第 ${index+1} 页暂时未能加载${state.image?'，已保留当前页':''}。可以重试翻页，或查看完整 PDF。`;state.status.hidden=false;
+  });
+}
+function changeDeckPage(delta){if(!deckState)return;deckState.index=Math.max(0,Math.min(deckState.pages.length-1,deckState.index+delta));updateDeckPage();}
 function setupVideoPlayback(){
   const video=body.querySelector('video'),button=body.querySelector('[data-video-action="toggle"]'),status=body.querySelector('.video-status');
   let timeout,disposed=false,wantsPlay=false,attempt=0;
@@ -154,7 +208,7 @@ function openWork(kind,id){
 function renderSlide(){const slides=[['01 / 封面',slideTitle,'策划案翻页体验 · 当前为示例内容。'],['02 / 策略','从一个想法开始','填入项目背景、策略思考与核心创意。'],['03 / 执行','让创意，真正落地','填入内容规划、执行节奏与项目成果。']];let s=slides[slideIndex];body.innerHTML=`<div class="slide"><span class="eyebrow">${s[0]}</span><h2 id="work-title">${esc(s[1])}</h2><p>${s[2]}</p></div><div class="slide-nav"><button data-slide="prev" ${slideIndex===0?'disabled':''}>上一页</button><span>${slideIndex+1} / 3</span><button data-slide="next" ${slideIndex===2?'disabled':''}>下一页</button></div>`;}
 root.addEventListener('click',e=>{const card=e.target.closest('[data-kind]');if(card)openWork(card.dataset.kind,card.dataset.id)});
 body.addEventListener('click',e=>{const b=e.target.closest('[data-slide]');if(b){slideIndex+=b.dataset.slide==='next'?1:-1;renderSlide();}const action=e.target.closest('[data-deck-action]')?.dataset.deckAction;if(action==='prev')changeDeckPage(-1);if(action==='next')changeDeckPage(1);if(action==='zoom'&&deckState){deckState.zoom=!deckState.zoom;updateDeckPage();}if(e.target.closest('[data-video-action="toggle"]'))videoController?.toggle();});
-body.addEventListener('change',e=>{if(e.target.matches('.deck-jump select')&&deckState){const index=Number(e.target.value);if(Number.isInteger(index)&&index>=0&&index<deckState.pages.length){deckState.index=index;deckState.zoom=false;updateDeckPage();}}});
+body.addEventListener('change',e=>{if(e.target.matches('.deck-jump select')&&deckState){const index=Number(e.target.value);if(Number.isInteger(index)&&index>=0&&index<deckState.pages.length){deckState.index=index;updateDeckPage();}}});
 document.querySelector('#close-dialog').addEventListener('click',closePreviewDialog);
 dialog.addEventListener('click',e=>{const rect=dialog.getBoundingClientRect();if(e.target===dialog&&e.clientX&&(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom))closePreviewDialog();});
 dialog.addEventListener('close',finishPreviewClose);
