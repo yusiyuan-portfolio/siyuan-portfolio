@@ -274,6 +274,158 @@
           "height": 900
         }
       ]
+    },
+    "/media/popmart-mi-course-plan.pdf": {
+      "sourceHash": "5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66",
+      "sourceFingerprint": "sha256:5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66",
+      "pageCount": 29,
+      "pages": [
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-001.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-002.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-003.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-004.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-005.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-006.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-007.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-008.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-009.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-010.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-011.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-012.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-013.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-014.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-015.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-016.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-017.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-018.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-019.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-020.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-021.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-022.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-023.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-024.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-025.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-026.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-027.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-028.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5907112667492cb52ae271d8020587b2d43dd07b189a9c7d20eee4e455e70b66/page-029.jpg",
+          "width": 1600,
+          "height": 900
+        }
+      ]
     }
   }
 }

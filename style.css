@@ -50,3 +50,25 @@ dialog{max-height:92vh;max-height:92svh;overflow:auto;overscroll-behavior:contai
 .preview-fallback:before{content:'';position:fixed;inset:0;z-index:70;background:#000b;backdrop-filter:blur(10px)}
 dialog.dialog-fallback{position:fixed;inset:20px 0;z-index:80;margin:auto;height:fit-content}
 @media(max-width:700px){.deck-toolbar{gap:8px;padding:11px 14px;font-size:12px}.deck-jump{gap:5px}.deck-jump select{font-size:12px;padding:8px 2px;max-width:82px}.deck-toolbar button{padding:9px 10px;font-size:12px}.deck-toolbar a{font-size:12px}.deck-reader-nav{padding:12px 14px;gap:8px}.deck-reader-nav button{padding:10px 13px}.deck-page-status,.video-status{padding:10px 16px}.video-toolbar{padding:14px 18px 0;gap:22px}}
+
+/* Awarded proposals include a readable project introduction and contribution summary. */
+.deck-card.has-case-study .deck-cover{background:#fff}
+.deck-card.has-case-study .deck-cover img{object-fit:contain}
+.deck-case-type{display:block;color:#aab79d;font-size:12px;margin-bottom:8px}
+.deck-award{display:inline-block;margin-top:12px;padding:7px 10px;border:1px solid #c1d0ad35;border-radius:5px;color:#d7e0ce;font-size:12px;line-height:1.7;background:#becfa808}
+.case-study-summary{margin:20px 0 5px}
+.preview-info .case-study-type{font-size:12px;color:#aebba4;margin:0 0 12px}
+.case-study-award{display:flex;align-items:baseline;gap:16px;padding:13px 16px;background:#d9e8b408;border:1px solid #d9e8b423;border-radius:6px}
+.case-study-award>span,.case-study-roles>span{font-size:12px;color:#a5b19c;white-space:nowrap}
+.case-study-award strong{font-size:15px;font-weight:600;line-height:1.7;color:#e3e9dd}
+.case-study-roles{display:flex;align-items:baseline;gap:16px;margin-top:16px}
+.case-study-roles ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 17px;padding:0;margin:0;color:#c4cebb;font-size:13px;line-height:1.8}
+.case-study-details{padding:30px 34px 34px;border-top:1px solid var(--line)}
+.case-study-details-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:20px}
+.case-study-details-heading>span{font-size:17px;font-weight:500;color:#e3e9dd}
+.case-study-details-heading>p{font-size:12px;line-height:1.7;color:var(--muted)}
+.case-study-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.case-study-section{padding:22px;border:1px solid #ffffff15;background:#ffffff03;border-radius:8px}
+.case-study-section h3{font-size:16px;font-weight:500;line-height:1.7;color:#e4e9dd;margin-bottom:12px}
+.case-study-section p{font-size:14px;line-height:1.95;color:#afb9ae}
+@media(max-width:700px){.case-study-award{display:block;padding:12px}.case-study-award>span{display:block;margin-bottom:4px}.case-study-award strong{font-size:14px}.case-study-roles{display:block}.case-study-roles ul{margin-top:8px;gap:6px 13px}.case-study-details{padding:24px 20px}.case-study-details-heading{display:block}.case-study-details-heading>p{margin-top:7px}.case-study-grid{grid-template-columns:1fr;gap:12px}.case-study-section{padding:17px}.case-study-section h3{font-size:15px}.case-study-section p{font-size:14px}}
