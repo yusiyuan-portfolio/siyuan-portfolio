@@ -203,7 +203,7 @@
       "description": "负责产品调研、详情页模块搭建、文案内容、寻找风格参考、沟通各方搭建详情页，并完成整体视觉优化。",
       "cover": "/assets/product-pages/home-backup-cover.jpg",
       "url": "https://www.jackery.com/pages/home-battery-backup",
-      "preview": "/assets/product-pages/home-backup-desktop.jpg",
+      "preview": "/assets/product-pages/home-backup-desktop-v2.jpg",
       "mobilePreview": "/assets/product-pages/home-backup-mobile.jpg",
       "previewMode": "image",
       "roles": [
@@ -223,7 +223,7 @@
       "cover": "/assets/product-pages/homepower-1000-cover.jpg",
       "url": "https://www.jackery.com/products/jackery-homepower-1000-plus-v2",
       "preview": "/assets/product-pages/homepower-1000-desktop.jpg",
-      "mobilePreview": "/assets/product-pages/homepower-1000-mobile.jpg",
+      "mobilePreview": "/assets/product-pages/homepower-1000-mobile-v2.jpg",
       "previewMode": "image",
       "roles": [
         "产品调研",
