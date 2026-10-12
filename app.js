@@ -2,9 +2,11 @@ const root=document.querySelector('#site-content'),dialog=document.querySelector
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const siteBase=new URL('./',document.currentScript?.src||new URL('app.js',location.href).href);
 const url=s=>{if(!s)return '';if(/^\/(assets|media)\/[\w./-]+$/.test(s))return new URL(s.slice(1),siteBase).href;try{let u=new URL(s);return ['http:','https:'].includes(u.protocol)?u.href:''}catch{return ''}};
+const videoUrl=s=>/^\/media\/[\w./-]+\.mp4$/i.test(s)?`${url(s)}?v=20261012-mobile`:url(s);
 const image=(src,alt)=>src?`<img src="${esc(url(src))}" alt="${esc(alt)}" loading="lazy">`:'';
 const categories={films:'视频作品',decks:'策划案',accounts:'运营账号'};
 let content,revision='',animationCleanup=()=>{},slideIndex=0,slideTitle='',lastFocus;
+let deckPreviews={version:1,documents:{}},deckState=null,mediaCleanup=()=>{},videoController=null;
 const demo=i=>i.demo?'<span class="demo-badge">示例封面</span>':'';
 const empty='<p class="empty-section">作品整理中，即将更新。</p>';
 function render(d){content=d;const p=d.profile;document.title=`${p.name} · 视频、策划与内容`;document.querySelector('.wordmark span').textContent=p.name;
@@ -44,9 +46,108 @@ function setupMotion(){
   animationCleanup=()=>{observer.disconnect();removeEventListener('scroll',onScroll);removeEventListener('resize',onScroll)};
 }
 function embed(raw){try{const u=new URL(raw);let id;if(u.hostname==='youtu.be')id=u.pathname.slice(1);if(['youtube.com','www.youtube.com','m.youtube.com'].includes(u.hostname))id=u.searchParams.get('v')||u.pathname.match(/^\/(?:shorts|embed)\/([\w-]+)/)?.[1];if(id&&/^[\w-]{11}$/.test(id))return `https://www.youtube-nocookie.com/embed/${id}`;if(['vimeo.com','www.vimeo.com'].includes(u.hostname)&&/^\/\d+$/.test(u.pathname))return `https://player.vimeo.com/video${u.pathname}`;}catch{}return '';}
-function openWork(kind,id){const item=content[kind].find(i=>i.id===id);if(!item)return;lastFocus=document.activeElement;document.querySelector('#work-category').textContent=categories[kind];let media='';const info=`<div class="preview-info"><h2 id="work-title">${esc(item.title)}</h2><p>${esc(item.description)}</p>${item.url?`<a href="${esc(url(item.url))}" target="_blank" rel="noopener noreferrer">${kind==='accounts'?'打开账号主页':'前往原始链接'}</a>`:''}${item.file&&kind==='decks'?`<a href="${esc(url(item.file))}" target="_blank" rel="noopener noreferrer">下载原始策划案</a>`:''}</div>`;
-if(kind==='decks'&&item.demo&&!item.file&&!item.preview){slideIndex=0;slideTitle=item.title;renderSlide();}else{const embedded=embed(item.url);if(kind==='decks'&&(item.preview||/\.pdf(?:\?|$)/i.test(item.file))){const pdf=item.preview||item.file;media=`<div class="preview-media pdf"><iframe title="${esc(item.title)} PDF 预览" src="${esc(url(pdf))}"></iframe></div>`;}else if(kind==='films'&&item.file){media=`<div class="preview-media"><video controls playsinline preload="metadata" ${item.cover?`poster="${esc(url(item.cover))}"`:''} src="${esc(url(item.file))}"></video></div>`;}else if(embedded){media=`<div class="preview-media"><iframe title="${esc(item.title)}" src="${embedded}" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;}else if(item.cover){media=`<div class="preview-media">${image(item.cover,item.title)}${item.demo?'<span class="preview-label">示例封面 · 真实作品待添加</span>':''}</div>`;}else{media=`<div class="preview-placeholder"><b>${esc(categories[kind])}</b><p>${item.file?'原始文件可在下方下载':item.url?'通过下方链接查看完整内容':'内容整理中'}</p></div>`;}body.innerHTML=media+info;}dialog.showModal();document.body.style.overflow='hidden';}
+function previewInfo(kind,item){
+  const pdf=kind==='decks'&&(item.preview||(/\.pdf(?:\?|$)/i.test(item.file)?item.file:''));
+  return `<div class="preview-info"><h2 id="work-title">${esc(item.title)}</h2><p>${esc(item.description)}</p>${item.url?`<a href="${esc(url(item.url))}" target="_blank" rel="noopener noreferrer">${kind==='accounts'?'打开账号主页':'前往原始链接'}</a>`:''}${pdf?`<a href="${esc(url(pdf))}" target="_blank" rel="noopener noreferrer">查看完整 PDF</a>`:''}${item.file&&kind==='decks'?`<a href="${esc(url(item.file))}" target="_blank" rel="noopener noreferrer">下载原始策划案</a>`:''}</div>`;
+}
+function openPreviewDialog(){
+  if(typeof dialog.showModal==='function')dialog.showModal();
+  else{dialog.setAttribute('open','');dialog.classList.add('dialog-fallback');document.body.classList.add('preview-fallback');}
+  document.body.classList.add('preview-open');document.body.style.overflow='hidden';
+  dialog.setAttribute('aria-modal','true');
+  document.querySelector('#close-dialog').focus();
+}
+function closePreviewDialog(){
+  if(dialog.classList.contains('dialog-fallback')){dialog.removeAttribute('open');finishPreviewClose();}
+  else if(dialog.open)dialog.close();
+}
+function finishPreviewClose(){
+  mediaCleanup();mediaCleanup=()=>{};videoController=null;deckState=null;
+  body.innerHTML='';dialog.classList.remove('dialog-fallback');document.body.classList.remove('preview-open','preview-fallback');
+  dialog.removeAttribute('aria-modal');
+  document.body.style.overflow='';lastFocus?.focus({preventScroll:true});
+}
+function deckDocument(pdf){
+  const document=deckPreviews.documents?.[pdf];
+  if(!document||!Array.isArray(document.pages)||document.pages.length<1||document.pages.length>200)return null;
+  if(!document.pages.every(p=>/^\/media\/deck-pages\/[a-f0-9]{64}\/page-\d+\.jpg$/.test(p.src)&&Number.isFinite(p.width)&&p.width>0&&Number.isFinite(p.height)&&p.height>0))return null;
+  return document;
+}
+function openDeckReader(item,document){
+  deckState={item,pages:document.pages,index:0,zoom:false};
+  body.innerHTML=`<div class="deck-reader"><div class="deck-toolbar"><span class="deck-position" aria-live="polite"></span><label class="deck-jump"><span>跳至</span><select aria-label="选择策划案页码">${document.pages.map((_,i)=>`<option value="${i}">第 ${i+1} 页</option>`).join('')}</select></label><button type="button" data-deck-action="zoom" aria-pressed="false">放大</button><a class="deck-full-page" target="_blank" rel="noopener noreferrer">高清页</a></div><div class="deck-viewport" tabindex="0" aria-label="策划案页面，左右滑动翻页"><img class="deck-page-image" decoding="async" alt=""></div><p class="deck-page-status" role="status"></p><div class="deck-reader-nav"><button type="button" data-deck-action="prev">上一页</button><span>左右滑动翻页</span><button type="button" data-deck-action="next">下一页</button></div></div>${previewInfo('decks',item)}`;
+  const img=body.querySelector('.deck-page-image'),viewport=body.querySelector('.deck-viewport'),status=body.querySelector('.deck-page-status');
+  img.onload=()=>{status.hidden=true;};
+  img.onerror=()=>{status.hidden=false;status.textContent='本页暂时未能加载，可以点「高清页」重试，或查看完整 PDF。';};
+  let start=null;
+  const onStart=e=>{if(deckState&&!deckState.zoom&&e.touches.length===1)start={x:e.touches[0].clientX,y:e.touches[0].clientY};else start=null;};
+  const onEnd=e=>{if(!start||!deckState||deckState.zoom||!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.4)changeDeckPage(dx<0?1:-1);};
+  const onKey=e=>{if(!deckState||e.target.tagName==='SELECT'||deckState.zoom)return;if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();changeDeckPage(e.key==='ArrowRight'?1:-1);}};
+  viewport.addEventListener('touchstart',onStart,{passive:true});viewport.addEventListener('touchend',onEnd,{passive:true});dialog.addEventListener('keydown',onKey);
+  mediaCleanup=()=>{img.onload=null;img.onerror=null;viewport.removeEventListener('touchstart',onStart);viewport.removeEventListener('touchend',onEnd);dialog.removeEventListener('keydown',onKey);};
+  updateDeckPage();
+}
+function updateDeckPage(){
+  if(!deckState)return;
+  const {item,pages,index,zoom}=deckState,page=pages[index],viewport=body.querySelector('.deck-viewport'),img=body.querySelector('.deck-page-image');
+  body.querySelector('.deck-position').textContent=`${index+1} / ${pages.length} 页`;
+  body.querySelector('.deck-jump select').value=String(index);
+  body.querySelector('[data-deck-action="prev"]').disabled=index===0;
+  body.querySelector('[data-deck-action="next"]').disabled=index===pages.length-1;
+  const zoomButton=body.querySelector('[data-deck-action="zoom"]');zoomButton.textContent=zoom?'适应屏幕':'放大';zoomButton.setAttribute('aria-pressed',String(zoom));
+  body.querySelector('.deck-full-page').href=url(page.src);viewport.classList.toggle('is-zoomed',zoom);
+  img.alt=`${item.title}，第 ${index+1} 页，共 ${pages.length} 页`;img.width=page.width;img.height=page.height;
+  if(img.getAttribute('src')!==url(page.src)){
+    const status=body.querySelector('.deck-page-status');status.hidden=false;status.textContent=`正在加载第 ${index+1} 页…`;
+    img.src=url(page.src);viewport.scrollTop=0;viewport.scrollLeft=0;
+    if(pages[index+1]){const next=new Image();next.src=url(pages[index+1].src);}
+  }
+}
+function changeDeckPage(delta){if(!deckState)return;deckState.index=Math.max(0,Math.min(deckState.pages.length-1,deckState.index+delta));deckState.zoom=false;updateDeckPage();}
+function setupVideoPlayback(){
+  const video=body.querySelector('video'),button=body.querySelector('[data-video-action="toggle"]'),status=body.querySelector('.video-status');
+  let timeout,disposed=false,wantsPlay=false,attempt=0;
+  const message=text=>{status.textContent=text;status.hidden=!text;};
+  const sync=()=>{button.textContent=video.paused?'播放视频':'暂停';button.setAttribute('aria-label',video.paused?'播放视频':'暂停视频');};
+  const waiting=()=>{clearTimeout(timeout);message('视频加载中…');timeout=setTimeout(()=>message('加载时间较长，可以点「直接打开视频」观看。'),12000);};
+  const playing=()=>{clearTimeout(timeout);message('');sync();};
+  const pause=()=>{wantsPlay=false;clearTimeout(timeout);message('');sync();};
+  const error=()=>{clearTimeout(timeout);message('暂时无法在此播放，可以点「直接打开视频」，或在 Safari 中打开本页。');sync();};
+  const start=()=>{wantsPlay=true;const token=++attempt;waiting();try{const result=video.play();if(result&&typeof result.catch==='function')result.catch(()=>{if(disposed||!wantsPlay||token!==attempt)return;clearTimeout(timeout);message('请点「播放视频」重试，或点「直接打开视频」观看。');sync();});}catch{error();}};
+  const toggle=()=>{if(video.paused||video.ended)start();else video.pause();};
+  video.addEventListener('playing',playing);video.addEventListener('pause',pause);video.addEventListener('ended',sync);video.addEventListener('waiting',waiting);video.addEventListener('error',error);
+  videoController={toggle};mediaCleanup=()=>{disposed=true;clearTimeout(timeout);video.removeEventListener('playing',playing);video.removeEventListener('pause',pause);video.removeEventListener('ended',sync);video.removeEventListener('waiting',waiting);video.removeEventListener('error',error);video.pause();video.removeAttribute('src');video.load();};
+  // This remains in the original card click, before any await or timer.
+  start();
+}
+function openWork(kind,id){
+  const item=content[kind]?.find(i=>i.id===id);if(!item)return;
+  mediaCleanup();mediaCleanup=()=>{};videoController=null;deckState=null;
+  lastFocus=document.activeElement;document.querySelector('#work-category').textContent=categories[kind];
+  const info=previewInfo(kind,item),embedded=embed(item.url);let media='';
+  if(kind==='decks'&&item.demo&&!item.file&&!item.preview){slideIndex=0;slideTitle=item.title;renderSlide();}
+  else if(kind==='decks'&&(item.preview||/\.pdf(?:\?|$)/i.test(item.file))){
+    const document=deckDocument(item.preview||item.file);
+    if(document)openDeckReader(item,document);
+    else body.innerHTML=`<div class="preview-placeholder"><b>策划案</b><p>逐页预览暂时无法加载，可在下方查看完整 PDF。</p></div>${info}`;
+  }else{
+    if(kind==='films'&&item.file)media=`<div class="preview-media"><video controls playsinline webkit-playsinline preload="metadata" ${item.cover?`poster="${esc(url(item.cover))}"`:''} src="${esc(videoUrl(item.file))}"></video></div><div class="video-toolbar"><button type="button" data-video-action="toggle">播放视频</button><a href="${esc(videoUrl(item.file))}" target="_blank" rel="noopener noreferrer">直接打开视频</a></div><p class="video-status" role="status" hidden></p>`;
+    else if(embedded)media=`<div class="preview-media"><iframe title="${esc(item.title)}" src="${embedded}" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
+    else if(item.cover)media=`<div class="preview-media">${image(item.cover,item.title)}${item.demo?'<span class="preview-label">示例封面 · 真实作品待添加</span>':''}</div>`;
+    else media=`<div class="preview-placeholder"><b>${esc(categories[kind])}</b><p>${item.file?'原始文件可在下方下载':item.url?'通过下方链接查看完整内容':'内容整理中'}</p></div>`;
+    body.innerHTML=media+info;
+  }
+  openPreviewDialog();if(kind==='films'&&item.file)setupVideoPlayback();
+}
 function renderSlide(){const slides=[['01 / 封面',slideTitle,'策划案翻页体验 · 当前为示例内容。'],['02 / 策略','从一个想法开始','填入项目背景、策略思考与核心创意。'],['03 / 执行','让创意，真正落地','填入内容规划、执行节奏与项目成果。']];let s=slides[slideIndex];body.innerHTML=`<div class="slide"><span class="eyebrow">${s[0]}</span><h2 id="work-title">${esc(s[1])}</h2><p>${s[2]}</p></div><div class="slide-nav"><button data-slide="prev" ${slideIndex===0?'disabled':''}>上一页</button><span>${slideIndex+1} / 3</span><button data-slide="next" ${slideIndex===2?'disabled':''}>下一页</button></div>`;}
-root.addEventListener('click',e=>{const card=e.target.closest('[data-kind]');if(card)openWork(card.dataset.kind,card.dataset.id)});body.addEventListener('click',e=>{const b=e.target.closest('[data-slide]');if(b){slideIndex+=b.dataset.slide==='next'?1:-1;renderSlide();}});document.querySelector('#close-dialog').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog&&e.clientX&&(e.clientX<dialog.getBoundingClientRect().left||e.clientX>dialog.getBoundingClientRect().right||e.clientY<dialog.getBoundingClientRect().top||e.clientY>dialog.getBoundingClientRect().bottom))dialog.close()});dialog.addEventListener('close',()=>{body.innerHTML='';document.body.style.overflow='';lastFocus?.focus({preventScroll:true})});
-async function load(initial=false){try{const r=await fetch(new URL('content.json',siteBase),{cache:'no-store'});if(!r.ok)throw Error('load');const result=await r.json();const nextRevision=JSON.stringify(result);if(!content||nextRevision!==revision){if(!initial&&dialog.open)return;revision=nextRevision;render(result);}}catch{if(!content)root.innerHTML='<section class="loading-surface"><h1>暂时无法加载</h1><p>请稍后刷新，作品内容仍在保留。</p></section>';}}
+root.addEventListener('click',e=>{const card=e.target.closest('[data-kind]');if(card)openWork(card.dataset.kind,card.dataset.id)});
+body.addEventListener('click',e=>{const b=e.target.closest('[data-slide]');if(b){slideIndex+=b.dataset.slide==='next'?1:-1;renderSlide();}const action=e.target.closest('[data-deck-action]')?.dataset.deckAction;if(action==='prev')changeDeckPage(-1);if(action==='next')changeDeckPage(1);if(action==='zoom'&&deckState){deckState.zoom=!deckState.zoom;updateDeckPage();}if(e.target.closest('[data-video-action="toggle"]'))videoController?.toggle();});
+body.addEventListener('change',e=>{if(e.target.matches('.deck-jump select')&&deckState){const index=Number(e.target.value);if(Number.isInteger(index)&&index>=0&&index<deckState.pages.length){deckState.index=index;deckState.zoom=false;updateDeckPage();}}});
+document.querySelector('#close-dialog').addEventListener('click',closePreviewDialog);
+dialog.addEventListener('click',e=>{const rect=dialog.getBoundingClientRect();if(e.target===dialog&&e.clientX&&(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom))closePreviewDialog();});
+dialog.addEventListener('close',finishPreviewClose);
+document.addEventListener('keydown',e=>{if(!dialog.classList.contains('dialog-fallback'))return;if(e.key==='Escape')closePreviewDialog();if(e.key==='Tab'){const focusable=[...dialog.querySelectorAll('a[href],button,select,[tabindex="0"]')].filter(el=>!el.disabled&&el.getClientRects().length);const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}}});
+document.addEventListener('focusin',e=>{if(dialog.classList.contains('dialog-fallback')&&!dialog.contains(e.target))document.querySelector('#close-dialog').focus();});
+async function loadDeckPreviews(){const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),8000);try{const response=await fetch(new URL('media/deck-previews.json',siteBase),{cache:'no-store',signal:controller.signal});if(!response.ok)return;const result=await response.json();if(result.version===1&&result.documents&&typeof result.documents==='object')deckPreviews=result;}catch{}finally{clearTimeout(timeout);}}
+async function load(initial=false){try{const r=await fetch(new URL('content.json',siteBase),{cache:'no-store'});if(!r.ok)throw Error('load');const result=await r.json();const nextRevision=JSON.stringify(result);if(!content||nextRevision!==revision){if(!initial&&dialog.open)return;await loadDeckPreviews();revision=nextRevision;render(result);}else if(result.decks.some(item=>(item.preview||/\.pdf(?:\?|$)/i.test(item.file))&&!deckDocument(item.preview||item.file)))await loadDeckPreviews();}catch{if(!content)root.innerHTML='<section class="loading-surface"><h1>暂时无法加载</h1><p>请稍后刷新，作品内容仍在保留。</p></section>';}}
 load(true);addEventListener('focus',()=>load());setInterval(()=>{if(!document.hidden)load()},30000);

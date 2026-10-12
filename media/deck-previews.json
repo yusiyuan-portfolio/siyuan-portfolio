@@ -1,0 +1,279 @@
+{
+  "version": 1,
+  "documents": {
+    "/media/0cc24114-3202-4d70-90c6-8321e172b56a.pdf": {
+      "sourceHash": "fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece",
+      "sourceFingerprint": "sha256:fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece",
+      "pageCount": 17,
+      "pages": [
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-001.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-002.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-003.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-004.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-005.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-006.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-007.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-008.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-009.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-010.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-011.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-012.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-013.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-014.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-015.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-016.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/fe514aa01b312d966e0b30fe85222954d130dc03ba4b48b790fdc0e5fc23bece/page-017.jpg",
+          "width": 1600,
+          "height": 900
+        }
+      ]
+    },
+    "/media/ae025406-aae0-4960-84c7-692913e8557b.pdf": {
+      "sourceHash": "5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a",
+      "sourceFingerprint": "sha256:5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a",
+      "pageCount": 35,
+      "pages": [
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-001.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-002.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-003.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-004.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-005.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-006.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-007.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-008.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-009.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-010.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-011.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-012.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-013.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-014.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-015.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-016.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-017.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-018.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-019.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-020.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-021.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-022.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-023.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-024.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-025.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-026.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-027.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-028.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-029.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-030.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-031.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-032.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-033.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-034.jpg",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "src": "/media/deck-pages/5ed7b9f508a35405ff69c8acd9eea020dfc111c74be4be0afc30dc655016c63a/page-035.jpg",
+          "width": 1600,
+          "height": 900
+        }
+      ]
+    }
+  }
+}
