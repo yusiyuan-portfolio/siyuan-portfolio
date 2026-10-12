@@ -72,3 +72,33 @@ dialog.dialog-fallback{position:fixed;inset:20px 0;z-index:80;margin:auto;height
 .case-study-section h3{font-size:16px;font-weight:500;line-height:1.7;color:#e4e9dd;margin-bottom:12px}
 .case-study-section p{font-size:14px;line-height:1.95;color:#afb9ae}
 @media(max-width:700px){.case-study-award{display:block;padding:12px}.case-study-award>span{display:block;margin-bottom:4px}.case-study-award strong{font-size:14px}.case-study-roles{display:block}.case-study-roles ul{margin-top:8px;gap:6px 13px}.case-study-details{padding:24px 20px}.case-study-details-heading{display:block}.case-study-details-heading>p{margin-top:7px}.case-study-grid{grid-template-columns:1fr;gap:12px}.case-study-section{padding:17px}.case-study-section h3{font-size:15px}.case-study-section p{font-size:14px}}
+
+/* The proposal collection uses three aligned cards with complete slide covers. */
+#decks.section{padding-top:30px;padding-bottom:64px;scroll-margin-top:0}
+#decks>.section-number{margin-bottom:20px}
+#decks>.section-title{margin-bottom:28px}
+#decks .decks-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:stretch}
+#decks .deck-card{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;min-width:0;height:100%;border:1px solid #ffffff17;border-radius:12px;overflow:hidden;background:#ffffff04;transition:border-color .25s ease,background .25s ease,transform .25s ease}
+#decks .deck-card:hover{border-color:#c6d5b045;background:#b7c99808;transform:translateY(-4px)}
+#decks .deck-card:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+#decks .deck-cover{aspect-ratio:16/9;flex:none;width:100%;border-radius:0;background:#f6f6f4;color:#172013}
+#decks .deck-cover.has-cover img{width:100%;height:100%;object-fit:contain}
+#decks .deck-cover:before{display:none}
+#decks .deck-cover:not(.has-cover){padding:22px;min-height:180px}
+#decks .deck-cover h3{font-size:26px;max-width:100%}
+.deck-fallback-index{font-size:26px;align-self:flex-end}
+.deck-card-copy{display:flex;flex-direction:column;flex:1;padding:20px 22px 18px;min-width:0}
+.deck-card-kicker{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:10px;letter-spacing:.12em;color:#9eac98;margin-bottom:17px}
+.deck-card-kicker>span:last-child{font-size:13px;font-variant-numeric:tabular-nums;letter-spacing:0;color:#c3cdbb}
+.deck-card-copy>h3{font-size:20px;font-weight:500;line-height:1.5;letter-spacing:-.02em;min-height:60px;overflow-wrap:anywhere}
+.deck-card-subtitle{font-size:13px;line-height:1.8;color:#9aa69a;margin-top:8px;min-height:26px}
+.deck-card-bottom{margin-top:auto;padding-top:18px;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;min-height:91px}
+.deck-card-award{display:flex;align-items:flex-start;gap:7px;font-size:12px;line-height:1.75;color:#c5d3b6}
+.deck-card-award>svg{width:17px;height:17px;flex:none;margin-top:2px}
+.deck-card-action{display:flex;align-items:center;justify-content:space-between;gap:15px;border-top:1px solid #ffffff18;padding-top:14px;font-size:12px;color:#d8e0d3}
+.deck-card-action>svg{width:19px;height:19px;flex:none;transition:transform .25s ease}
+#decks .deck-card:hover .deck-card-action>svg{transform:translate(2px,-2px)}
+@media(min-width:1001px) and (max-width:1150px){.deck-card-copy{padding:18px}.deck-card-copy>h3{font-size:18px;min-height:54px}.deck-card-subtitle{font-size:12px}.deck-card-award{font-size:11px}}
+@media(max-width:1000px) and (min-width:701px){#decks .decks-grid{grid-template-columns:1fr;gap:20px}#decks .deck-card{display:grid;grid-template-columns:1fr 1.15fr}#decks .deck-cover{height:100%;min-height:240px;aspect-ratio:auto}.deck-card-copy{padding:24px}.deck-card-copy>h3{min-height:0}.deck-card-subtitle{min-height:0}.deck-card-bottom{min-height:0;padding-top:22px}}
+@media(max-width:700px){#decks.section{padding-top:26px;padding-bottom:48px}#decks>.section-number{margin-bottom:16px}#decks>.section-title{margin-bottom:24px}#decks .decks-grid{grid-template-columns:1fr;gap:24px}#decks .deck-card{height:auto;border-radius:10px}#decks .deck-cover{aspect-ratio:16/9}.deck-card-copy{padding:19px 20px 18px}.deck-card-kicker{margin-bottom:13px}.deck-card-copy>h3{font-size:19px;min-height:0}.deck-card-subtitle{font-size:13px;min-height:0;margin-top:9px}.deck-card-bottom{padding-top:20px;min-height:0;gap:13px}}
+@media(prefers-reduced-motion:reduce){#decks .deck-card:hover,#decks .deck-card:hover .deck-card-action>svg{transform:none}}
